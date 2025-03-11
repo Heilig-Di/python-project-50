@@ -1,0 +1,7 @@
+__pycache__/
+.python-version
+.DS_Store
+diff.cast
+build/
+hello.py
+hexlet_code.egg-info/
