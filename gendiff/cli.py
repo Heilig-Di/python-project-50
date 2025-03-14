@@ -1,6 +1,6 @@
 import argparse
 
-from gendiff.json_utils import generate_diff
+from gendiff.compare_data import generate_diff
 
 
 def main():
