@@ -1,24 +1,27 @@
 import json
+import os
 
 import yaml
 
 
+def read_file(file_path):
+    extension = os.path.splitext(file_path)
+    with open(file_path, 'r') as file:
+        if extension in ('json',):
+            return json.load(file)
+        if extension in ('yaml', 'yml'):
+            return yaml.safe_load(file)
+        raise ValueError(f'Unsupported file format: {extension}')
+
+
 def load_data(file1_path, file2_path):
-    if file1_path.endswith('.json') and file2_path.endswith('.json'):
-        with open(file1_path, 'r') as file1:
-            data1 = json.load(file1)
+    ext1 = read_file(file1_path)
+    ext2 = read_file(file2_path)
 
-        with open(file2_path, 'r') as file2:
-            data2 = json.load(file2)
+    if ext1 != ext2:
+        raise ValueError('Files must have the same format')
 
-    elif (file1_path.endswith(('.yaml', '.yml')) and
-            file2_path.endswith(('.yaml', '.yml'))):
-        with open(file1_path, 'r') as file1:
-            data1 = yaml.safe_load(file1)
-
-        with open(file2_path, 'r') as file2:
-            data2 = yaml.safe_load(file2)
-    else:
-        raise ValueError('Unsupported format file. Use json or yaml.')
+    data1 = read_file(file1_path, ext1)
+    data2 = read_file(file2_path, ext2)
 
     return data1, data2

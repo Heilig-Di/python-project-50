@@ -1,3 +1,4 @@
+from gendiff.cli import parse_args
 from gendiff.diff import build_diff
 from gendiff.path_data import load_data
 from gendiff.stylish import formater_stylish
@@ -9,3 +10,7 @@ def generate_diff(file1_path, file2_path, format='stylish'):
 
     if format == 'stylish':
         return formater_stylish(diff)
+
+
+def run():
+    return generate_diff(**vars(parse_args()))

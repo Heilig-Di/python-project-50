@@ -1,4 +1,3 @@
-from gendiff.path_data import load_data
 
 
 def build_diff(data1, data2):
