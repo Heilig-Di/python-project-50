@@ -7,7 +7,7 @@ import yaml
 def read_file(file_path):
     extension = os.path.splitext(file_path)
     with open(file_path, 'r') as file:
-        if extension in ('json',):
+        if extension in ('json'):
             return json.load(file)
         if extension in ('yaml', 'yml'):
             return yaml.safe_load(file)
