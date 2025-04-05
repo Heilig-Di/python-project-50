@@ -5,7 +5,8 @@ import yaml
 
 
 def read_file(file_path):
-    extension = os.path.splitext(file_path)
+    _, extension = os.path.splitext(file_path)
+    extension = extension.lower().lstrip('.')
     with open(file_path, 'r') as file:
         if extension in ('json'):
             return json.load(file)
@@ -15,13 +16,13 @@ def read_file(file_path):
 
 
 def load_data(file1_path, file2_path):
-    ext1 = read_file(file1_path)
-    ext2 = read_file(file2_path)
+    ext1 = os.path.splitext(file1_path)[1].lstrip('.').lower()
+    ext2 = os.path.splitext(file2_path)[1].lstrip('.').lower()
 
     if ext1 != ext2:
         raise ValueError('Files must have the same format')
 
-    data1 = read_file(file1_path, ext1)
-    data2 = read_file(file2_path, ext2)
+    data1 = read_file(file1_path)
+    data2 = read_file(file2_path)
 
     return data1, data2
