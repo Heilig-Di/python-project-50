@@ -1,7 +1,6 @@
 import json
-import os
-
 import yaml
+import os
 
 
 def read_file(file_path):
