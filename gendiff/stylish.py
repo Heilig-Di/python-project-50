@@ -2,7 +2,18 @@ def format_dict(value, depth):
     indent = ' ' * ((depth + 1) * 4)
     inner = [f'{indent}{k}: {format_value(v, depth + 1)}'
             for k, v in value.items()]
-    return '{{\n{}\n{}}}'.format('\n'.join(inner), ' ' * (depth * 4))
+    closing_indent = ' ' * (depth * 4)
+    return '{{\n{}\n{}}}'.format('\n'.join(inner), closing_indent)
+
+
+def format_nested(node, depth):
+    indent = ' ' * (depth * 4)
+    children = formater_stylish(node['children'], depth + 1)
+    return [
+        f'{indent}    {node["key"]}: {{',
+        children,
+        f'{indent}    }}'
+    ]
 
 
 def format_primitive(value):
@@ -23,15 +34,6 @@ def format_value(value, depth):
     return format_primitive(value)
 
 
-def format_nested(node, depth):
-    indent = ' ' * (depth * 4)
-    return [
-        f'{indent}    {node["key"]}: {{',
-        formater_stylish(node['children'], depth + 1),
-        f'{indent}    }}'
-    ]
-
-
 def format_change(node, depth):
     indent = ' ' * (depth * 4)
     old_val = format_value(node["old_value"], depth)
@@ -43,9 +45,9 @@ def format_change(node, depth):
 
 
 def format_simple(node, depth):
-    sign = {'append': '+', 'remove': '-', 'unchange': ' '}
+    sign = {'append': '+', 'remove': '-', 'unchange': ' '}[node['type']]
     indent = ' ' * (depth * 4)
-    value = {format_value(node['value'], depth)}
+    value = format_value(node['value'], depth)
     return f"{indent}  {sign} {node['key']}: {value}"
 
 
@@ -57,7 +59,22 @@ def formater_stylish(diff, depth=0):
             'change': format_change
         }.get(node['type'], lambda n, d: [format_simple(n, d)])
 
-        result.extend(handler(node, depth))
+        processed = handler(node, depth)
+        if isinstance(processed, list):
+            result.extend(processed)
+        else:
+            result.append(processed)
 
-    joined_result = '\n'.join(result)
-    return f'{{\n{joined_result}\n}}' if depth == 0 else joined_result
+    def flatten(items):
+        for item in items:
+            if isinstance(item, list):
+                yield from flatten(item)
+            else:
+                yield item
+
+    flattened = list(flatten(result))
+    joined = '\n'.join(flattened)
+
+    if depth == 0:
+        return f'{{\n{joined}\n}}'
+    return joined
