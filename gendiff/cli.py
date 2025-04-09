@@ -12,10 +12,10 @@ def parse_args():
     return parser.parse_args()
 
 
-def run():
+def main():
     args = parse_args()
-    return generate_diff(args.first_file, args.second_file, args.format)
+    print(generate_diff(args.first_file, args.second_file, args.format))
 
 
 if __name__ == '__main__':
-    print(run())
+    main()
