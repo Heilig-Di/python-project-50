@@ -11,7 +11,6 @@ def format_nested(node, depth):
     children = formater_stylish(node['children'], depth + 1)
     return [
         f'{indent}    {node["key"]}: {{',
-        children,
         f'{indent}    }}'
     ]
 
