@@ -8,10 +8,9 @@ def format_dict(value, depth):
 
 def format_nested(node, depth):
     indent = ' ' * (depth * 4)
-    children = formater_stylish(node['children'], depth + 1)
     return [
         f'{indent}    {node["key"]}: {{',
-        f'{indent}    }}'
+        f'{indent}        }}'
     ]
 
 
