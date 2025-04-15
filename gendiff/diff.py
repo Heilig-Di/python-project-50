@@ -1,7 +1,5 @@
-
-
 def build_diff(data1, data2):
-    all_keys = sorted(set(data1.keys()) | data2.keys())
+    all_keys = sorted(list((set(data1)) | set(data2)))
     diff = []
 
     for key in all_keys:

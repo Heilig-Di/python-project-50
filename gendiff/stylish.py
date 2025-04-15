@@ -8,9 +8,11 @@ def format_dict(value, depth):
 
 def format_nested(node, depth):
     indent = ' ' * (depth * 4)
+    nested_content = formater_stylish(node["children"], depth + 1)
     return [
         f'{indent}    {node["key"]}: {{',
-        f'{indent}        }}'
+        nested_content,
+        f'{indent}    }}'
     ]
 
 
@@ -51,33 +53,20 @@ def formater_stylish(diff, depth=0):
     result = []
 
     for node in diff:
-        handler = {
-            'nested': format_nested,
-            'change': format_change,
-            'append': lambda n, d: [format_simple(n, d)],
-            'remove': lambda n, d: [format_simple(n, d)],
-            'unchange': lambda n, d: [format_simple(n, d)]
-        }.get(node['type'], lambda n, d: [format_simple(n, d)])
-
-        processed = handler(node, depth)
+        if node['type'] == 'nested':
+            processed = format_nested(node, depth)
+        elif node['type'] == 'change':
+            processed = format_change(node, depth)
+        else:
+            processed = [format_simple(node, depth)]
 
         if isinstance(processed, list):
             result.extend(processed)
         else:
             result.append(processed)
 
-    def flatten(items):
-        for item in items:
-            if isinstance(item, list):
-                yield from flatten(item)
-            else:
-                yield item
-
-    flattened = list(flatten(result))
-
-    joined = '\n'.join(flattened)
+    joined = '\n'.join([line for line in result if line is not None])
 
     if depth == 0:
         return f'{{\n{joined}\n}}'
-
     return joined
