@@ -1,6 +1,7 @@
 from gendiff.diff import build_diff
+from gendiff.format.plain import format_plain
+from gendiff.format.stylish import formater_stylish
 from gendiff.path_data import read_file
-from gendiff.stylish import formater_stylish
 
 
 def generate_diff(file1_path, file2_path, format='stylish'):
@@ -8,4 +9,9 @@ def generate_diff(file1_path, file2_path, format='stylish'):
     data2 = read_file(file2_path)
     diff = build_diff(data1, data2)
 
-    return formater_stylish(diff)
+    formatters = {
+        'stylish': formater_stylish,
+        'plain': format_plain
+    }
+
+    return formatters[format](diff)
