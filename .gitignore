@@ -7,3 +7,5 @@ hello.py
 hexlet_code.egg-info/
 yaml.cast
 cpython-312.pyc
+json.cast
+plain.cast
