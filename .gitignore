@@ -9,3 +9,4 @@ yaml.cast
 cpython-312.pyc
 json.cast
 plain.cast
+coverage.xml

@@ -30,8 +30,8 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
-            -Dsonar.projectKey=hexlet-boilerplates_python-package
-            -Dsonar.organization=hexlet-boilerplates
+            -Dsonar.projectKey=Heilig-Di_python-project-50
+            -Dsonar.organization=heilig-di
             -Dsonar.python.coverage.reportPaths=coverage.xml
             -Dsonar.sources=gendiff
             -Dsonar.tests=tests
