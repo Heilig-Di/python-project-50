@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from gendiff.compare_data import generate_diff
+from gendiff.gendiff_compare import generate_diff
 
 
 @pytest.fixture
