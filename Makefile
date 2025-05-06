@@ -1,7 +1,8 @@
 build:
 	uv build
 install:
-	uv pip install -e ".[dev]"
+	uv venv .venv
+	.venv/bin/uv pip install -e ".[dev]"
 lint:
 	uv run ruff check
 tests:
