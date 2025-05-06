@@ -23,7 +23,7 @@ jobs:
           make lint
       - name: Run test coverage
         run: |
-          pytest --cov=gendiff --cov-report=xml:coverage.xml tests/
+          .venv/bin/pytest --cov=gendiff --cov-report=xml:coverage.xml tests/
       - name: SonarQubeScan
         uses: SonarSource/sonarqube-scan-action@v5
         env:
