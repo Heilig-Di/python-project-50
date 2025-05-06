@@ -7,6 +7,12 @@ authors = [
 ]
 readme = "README.md"
 requires-python = ">=3.12"
+dependency = [
+    "pytest>=8.3.5",
+    "ruff>=0.9.10",
+    "PyYAML>=6.0.1",
+    "pytest-cov >= 5.0.0",
+]
 
 [build-system]
 requires = ["hatchling"]
@@ -17,11 +23,3 @@ packages = ["gendiff"]
 
 [project.scripts]
 gendiff = "gendiff.scripts.gendiff:main"
-
-[dependency-groups]
-dev = [
-    "pytest>=8.3.5",
-    "ruff>=0.9.10",
-    "PyYAML>=6.0.1",
-    "pytest-cov >= 5.0.0",
-]
