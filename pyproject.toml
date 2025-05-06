@@ -9,7 +9,7 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependency = [
     "pytest>=8.3.5",
-    "ruff>=0.9.10",
+    "ruff>=0.11.6",
     "PyYAML>=6.0.1",
     "pytest-cov >= 5.0.0",
 ]
