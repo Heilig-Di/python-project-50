@@ -30,7 +30,7 @@ git clone https://github.com/Heilig-Di/python-project-50.git
 ```
 Для установки зависимостей запустите:
 ```
-uv sync
+uv pip install -e ".[dev]"
 ```
 Для удаления запустите:
 ```

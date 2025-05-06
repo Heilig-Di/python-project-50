@@ -1,7 +1,7 @@
 build:
 	uv build
 install:
-	uv sync
+	uv pip install -e ".[dev]"
 lint:
 	uv run ruff check
 tests:
