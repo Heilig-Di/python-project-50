@@ -23,7 +23,7 @@ jobs:
           make lint
       - name: Run test coverage
         run: |
-          make tests
+          pytest --cov=gendiff --cov-report=xml:coverage.xml tests/
       - name: SonarQubeScan
         uses: SonarSource/sonarqube-scan-action@v5
         env:
@@ -33,3 +33,5 @@ jobs:
             -Dsonar.projectKey=hexlet-boilerplates_python-package
             -Dsonar.organization=hexlet-boilerplates
             -Dsonar.python.coverage.reportPaths=coverage.xml
+            -Dsonar.sources=gendiff
+            -Dsonar.tests=tests
